@@ -13,23 +13,36 @@ class Sort:
 		self.data=algorithms[alg](self.data)  
 
 	
-	def quick_sort(self):
-		def partition(arr,low,high):
-			pivot=arr[low]
-			leftwall = low
+	def quick_sort(self,data):
+		def quick( arr, low, high):
 
-			for i in range(low+1,high):
-				if(arr[i]<pivot):
-					temp = arr[leftwall]
-					arr[leftwall]=arr[i]
-					arr[i]=temp
-					leftwall+=1
-			temp = arr[leftwall]
-			arr[leftwall]=arr[low]
-			arr[low]=temp
-			return(leftwall)
-		# if low<high:
-		# 	pivot_location=partition()
+			def partition(arr,low,high):
+
+				#Improve pivot choice
+				pivot=arr[high]
+				leftwall = low
+
+				for i in range(low,high):
+					if(arr[i]<pivot):
+						temp = arr[leftwall]
+						arr[leftwall]=arr[i]
+						arr[i]=temp
+						leftwall+=1
+
+				temp = arr[leftwall]
+				arr[leftwall]=arr[high]
+				arr[high]=temp
+				return(leftwall)
+			
+			if low<high:
+				pivot_location=partition(arr,low,high)
+				quick(arr, low, pivot_location-1)
+				quick(arr,pivot_location+1,high)
+
+			# print(arr)
+			return arr
+		return quick(data,0,len(data)-1)
+
 	def merge_sort(self,data):
 		def merge(l,r):
 			arr = list()
@@ -65,4 +78,5 @@ class Sort:
 		print("Running bubble sort on", self.data)
 if __name__=='__main__':
 	unordered = [3,5,1,63,7,6,2,62,72,162,21]
-	print(Sort(unordered,'merge').data)
+	#unordered = [3,5,1,63,7,6]
+	print(Sort(unordered).data)
