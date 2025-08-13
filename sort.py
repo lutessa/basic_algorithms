@@ -74,9 +74,24 @@ class Sort:
 		# print("Running merge sort on", m)
 		return m
 
-	def bubble_sort(self):
+	def bubble_sort(self,data):
+
+		def bubble(arr,rightwall):
+			if rightwall>0:
+				for i in range(0, rightwall):
+					if arr[i]>arr[i+1]:
+						temp = arr[i+1]
+						arr[i+1] = arr[i]
+						arr[i] = temp
+						print(arr)
+				return bubble(arr,rightwall-1)
+			
+			return arr
+		return bubble(self.data,len(self.data)-1)
 		print("Running bubble sort on", self.data)
+
+
 if __name__=='__main__':
 	unordered = [3,5,1,63,7,6,2,62,72,162,21]
 	#unordered = [3,5,1,63,7,6]
-	print(Sort(unordered).data)
+	print(Sort(unordered,'bubble').data)
